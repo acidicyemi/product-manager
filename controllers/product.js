@@ -1,14 +1,18 @@
 var models = require("../models")
 const Product = models.Product
+const User = models.User
 Promise   = require('bluebird'),
 
 module.exports = {
     listProducts: function (req, res, next) {
         Promise.coroutine(function*() {
             try {
-              var products = yield Product.findAndCountAll({where:{},limit:10});
+              var products = yield Product.findAndCountAll({where:{},  include: {
+                model: User
+              } ,limit:10});
               return res.status(200).send({success: true, products});
             } catch (err) {
+              console.log(err)
               return res.status(200).send({success: false, error: (err)});
             }
           })();
