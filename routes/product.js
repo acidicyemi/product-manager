@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+let pc = require("../controllers/product")
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('list products');
-});
+router.get('/', pc.listProducts);
 
 module.exports = router;
